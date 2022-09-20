@@ -1,0 +1,23 @@
+{
+  "name": "com.projectdawn.dotsplus",
+  "displayName": "Dots Plus",
+  "version": "1.4.0",
+  "unity": "2020.3",
+  "keywords": [
+    "dots",
+    "collections"
+  ],
+  "dependencies": {
+    "com.unity.mathematics": "1.2.6",
+    "com.unity.collections": "1.4.0",
+    "com.unity.burst": "1.6.6"
+  },
+  "unityRelease": "36f1",
+  "type": "tool",
+  "author": {
+    "name": "Lukas Chodosevicius",
+    "email": "lukaschodosevicius@gmail.com",
+    "url": "https://assetstore.unity.com/publishers/62140"
+  },
+  "description": "This package contains essentials needed to develop DOTS projects. It is built to be used as an extension for existing Unity builtin packages (etc. SIMD mathematics, Collections, Jobs and Burst compiler)."
+}

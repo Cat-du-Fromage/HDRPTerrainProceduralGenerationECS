@@ -1,0 +1,20 @@
+{
+    "name": "ProjectDawn.Samples.Shapes",
+    "rootNamespace": "",
+    "references": [
+        "GUID:5093cc50af307c443b969c955d94f935",
+        "GUID:104d7c71b10be684ca756b9a4582a859",
+        "GUID:e8556e7ec99f86f4bb19bad055a66226",
+        "GUID:e0cd26848372d4e5c891c569017e11f1",
+        "GUID:d8b63aba1907145bea998dd612889d6b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
