@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8f5b495a1a047243bcef761c4edaa19, type: 3}
   m_Name: TerrainSettingsECS
   m_EditorClassIdentifier: 
-  <NumChunkWidth>k__BackingField: 8
+  <NumChunkWidth>k__BackingField: 2
   <NumChunkHeight>k__BackingField: 2
   <ChunkSettings>k__BackingField: {fileID: 11400000, guid: a1e98898182b2c748b9ead2e391941a4,
     type: 2}

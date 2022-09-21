@@ -17,7 +17,7 @@ MonoBehaviour:
   Lacunarity: 1.8
   Persistence: 0.5
   Scale: 64
-  HeightMultiplier: 8
+  HeightMultiplier: 1
   Offset:
     x: 0
     y: 0
