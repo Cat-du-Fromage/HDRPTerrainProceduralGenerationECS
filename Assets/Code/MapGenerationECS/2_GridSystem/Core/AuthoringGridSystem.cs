@@ -44,6 +44,13 @@ namespace KWZTerrainECS
             if (!isActive) return;
             BlobAssetReference<GridCells> blob = CreateGridCells(TerrainSettings);
             dstManager.AddComponentData(entity, new BlobCells(){ Blob = blob });
+            
+            //ChunkNodesBlobAsset te = new ChunkNodesBlobAsset();
+            //dstManager.AddComponentData(entity, te);
+            
+            DynamicBuffer<ChunkNodeGrid> buffer = dstManager.AddBuffer<ChunkNodeGrid>(entity);
+            buffer.BuildGrid(TerrainSettings.ChunkQuadsPerLine, TerrainSettings.NumChunkAxis);
+
             //MASSIVE LAG! => need to use blob
 /*
             DynamicBuffer<ChunkNodeGrid> buffer = dstManager.AddBuffer<ChunkNodeGrid>(entity);
