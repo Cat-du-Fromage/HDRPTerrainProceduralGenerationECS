@@ -41,6 +41,10 @@ namespace KWZTerrainECS
                 {
                     int2 gateCoord = GetXY2(j, ChunkQuadPerLine) + offsetChunk;
 
+					//gateCoord = select(gateCoord,gateCoord.yx,any(isXOffset));
+					//gateCoord.x = select(gateCoord.x + ChunkQuadPerLine - 1, gateCoord.x, side == Left);
+					//gateCoord.y = select(gateCoord.y + ChunkQuadPerLine - 1, gateCoord.y, side == Bottom);
+					
                     gateCoord.x = select(gateCoord.x,select(offsetChunk.x - 1,offsetChunk.x,side == Left),any(isXOffset));
                     gateCoord.y = select(gateCoord.y,select(offsetChunk.y - 1,offsetChunk.y,side == Bottom),any(isYOffset));
                     
