@@ -31,6 +31,7 @@ namespace KWZTerrainECS
     
     public static class ChunkGridExtension
     {
+        /*
         public static void BuildGrid(int chunkSize, int2 numChunksXY)
         {
             DynamicBuffer<ChunkNodeGrid> buffer = new DynamicBuffer<ChunkNodeGrid>();
@@ -67,6 +68,7 @@ namespace KWZTerrainECS
             }
             return gates;
         }
+        */
     }
     
     
@@ -120,11 +122,15 @@ namespace KWZTerrainECS
     
     public readonly struct GateWay
     {
+        public readonly int ChunkIndex;
+        public readonly Sides Side;
         public readonly int Index;
         public readonly int IndexAdjacent;
-
-        public GateWay(int index = -1, int indexAdj = -1)
+        
+        public GateWay(int chunkIndex, Sides side, int index = -1, int indexAdj = -1)
         {
+            ChunkIndex = chunkIndex;
+            Side = side;
             Index = index;
             IndexAdjacent = indexAdj;
         }

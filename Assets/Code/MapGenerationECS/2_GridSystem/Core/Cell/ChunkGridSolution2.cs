@@ -6,11 +6,13 @@ using Unity.Entities;
 using Unity.Jobs;
 using Unity.Jobs.LowLevel.Unsafe;
 using Unity.Mathematics;
+using UnityEngine;
 using static KWZTerrainECS.Sides;
 
 using static KWZTerrainECS.Utilities;
 using static Unity.Mathematics.math;
 using static Unity.Jobs.LowLevel.Unsafe.JobsUtility;
+using int2 = Unity.Mathematics.int2;
 
 namespace KWZTerrainECS
 {
@@ -39,28 +41,22 @@ namespace KWZTerrainECS
 
                 for (int j = 0; j < ChunkQuadPerLine; j++)
                 {
-                    int2 gateCoord = GetXY2(j, ChunkQuadPerLine) + offsetChunk;
-
-					//gateCoord = select(gateCoord,gateCoord.yx,any(isXOffset));
-					//gateCoord.x = select(gateCoord.x + ChunkQuadPerLine - 1, gateCoord.x, side == Left);
-					//gateCoord.y = select(gateCoord.y + ChunkQuadPerLine - 1, gateCoord.y, side == Bottom);
-					
-                    gateCoord.x = select(gateCoord.x,select(offsetChunk.x - 1,offsetChunk.x,side == Left),any(isXOffset));
-                    gateCoord.y = select(gateCoord.y,select(offsetChunk.y - 1,offsetChunk.y,side == Bottom),any(isYOffset));
+                    int2 gateCoord = GetXY2(j, ChunkQuadPerLine);
                     
+                    gateCoord = select(gateCoord,gateCoord.yx,any(isXOffset)) + offsetChunk;
+                    
+					gateCoord.x += select(0, ChunkQuadPerLine - 1, side == Right);
+					gateCoord.y += select(0, ChunkQuadPerLine - 1, side == Top);
+
                     int2 offsetXY = new int2
                     (
                         select( select(1,-1,isXOffset.x), 0,!any(isXOffset) ),
                         select( select(1,-1,isYOffset.y), 0,!any(isYOffset) )
                     );
                     
-                    //int offsetX = select( select(1,-1,isXOffset.x), 0,!any(isXOffset) );
-                    //int offsetY = select( select(1,-1,isYOffset.y), 0,!any(isYOffset) );
-                    
-                    int gateIndex = gateCoord.y * terrainSize.x + gateCoord.x;
+                    int gateIndex = mad(gateCoord.y, terrainSize.x, gateCoord.x);
                     int2 coordOffset = gateCoord + offsetXY;
-                    
-                    int adjGateIndex = (coordOffset.y) * terrainSize.x + (coordOffset.x);
+                    int adjGateIndex = mad(coordOffset.y,terrainSize.x,coordOffset.x);
 
                     bool2 isOutLimit = new bool2
                     (
@@ -68,8 +64,11 @@ namespace KWZTerrainECS
                         coordOffset.y < 0 || coordOffset.y > terrainSize.y - 1
                     );
 
-                    int indexOffset = (chunkIndex * ChunkQuadPerLine * 4) + i * ChunkQuadPerLine + j;
-                    GateWays[indexOffset] = any(isOutLimit) ? new GateWay() : new GateWay(gateIndex, adjGateIndex);
+                    int offsetChunkIndex = chunkIndex * ChunkQuadPerLine * 4;
+                    int indexOffset = offsetChunkIndex + (i * ChunkQuadPerLine + j);
+                    GateWays[indexOffset] = any(isOutLimit) 
+                        ? new GateWay(chunkIndex, side) 
+                        : new GateWay(chunkIndex, side,gateIndex, adjGateIndex);
                 }
             }
         }
@@ -112,7 +111,7 @@ namespace KWZTerrainECS
             }
             */
         }
-
+        /*
         //WRONG use for build
         public static NativeArray<GateWay> GetGateWays(this NativeArray<GateWay> gates, int chunkIndex, Sides side, int chunkSize, int2 numChunksXY)
         {
@@ -136,5 +135,6 @@ namespace KWZTerrainECS
             }
             return gates;
         }
+        */
     }
 }
